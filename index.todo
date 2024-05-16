@@ -1,0 +1,120 @@
+1. Create the Chrome Extension
+    - Get: Extracted the code for editor
+    - Add Button to get code, question, and other details
+    - Add section report next to the question
+2. Create Server
+    - Get code / ref question and store in DB
+    - Index most optimal solution of all questions and answer - Leetcode, codeshef etc
+    - Profile Creation - interest, ratings and other measures.
+3. Report Generator
+    - Get user code and optimal code also related docs
+    - Generate Dedicated report on user code
+4. Dashboard
+    - Display the stats and other stuff
+
+More Features
+    - Generated report and custom learning material.
+
+
+#Stack
+Extension - HTML CSS JS
+Backend - TS Express Prisma-ORM Postgres-SQL Redis other
+Frontend - React(NextJS) React-Query Recoil
+Generator - TS Express Postgres-SQL PubSub-Redis
+
+
+<!-- <!-- popup.html -->
+<!doctype html>
+<html>
+    <head>
+        <title>Textarea Text Retriever</title>
+        <style>
+            .button-64 {
+                align-items: center;
+                background-image: linear-gradient(
+                    144deg,
+                    #af40ff,
+                    #5b42f3 50%,
+                    #00ddeb
+                );
+                border: 0;
+                border-radius: 8px;
+                box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+                box-sizing: border-box;
+                color: #ffffff;
+                display: flex;
+                font-family: Phantomsans, sans-serif;
+                font-size: 12px;
+                justify-content: center;
+                line-height: 1em;
+                max-width: 100%;
+                min-width: 30px;
+                padding: 3px;
+                text-decoration: none;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                white-space: nowrap;
+                cursor: pointer;
+                margin: auto;
+            }
+
+            .button-64:active,
+            .button-64:hover {
+                outline: 0;
+            }
+
+            .button-64 span {
+                background-color: rgb(5, 6, 45);
+                padding: 5px 10px;
+                border-radius: 6px;
+                width: 100%;
+                height: 100%;
+                transition: 300ms;
+            }
+
+            .button-64:hover span {
+                background: none;
+            }
+
+            .gradient-text {
+                /* Apply the gradient background */
+                background: linear-gradient(to right, #d8b4fe, #fb923c);
+                /* Set the text color to transparent */
+                color: transparent;
+                /* Clip the background to the text */
+                background-clip: text;
+                -webkit-background-clip: text; /* For WebKit browsers (Safari, Chrome) */
+            }
+        </style>
+        <script src="popup.js"></script>
+    </head>
+    <body style="width: 300px; height: auto">
+        <div
+            style="
+                border-radius: 5px;
+                padding: 10px;
+                color: white;
+                background-color: black;
+                text-align: center;
+            "
+        >
+            <h1 class="gradient-text">Beginning Stack</h1>
+            <p>Click the button to get code</p>
+            <button class="button-64" role="button" id="getTextButton">
+                <span class="text">Get Code</span>
+            </button>
+            <p
+                id="textDisplay"
+                style="
+                    text-align: left;
+                    background-color: transparent;
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-top: 0px;
+                    overflow-y: scroll;
+                "
+            ></p>
+        </div>
+    </body>
+</html> -->
