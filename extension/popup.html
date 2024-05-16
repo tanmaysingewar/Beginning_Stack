@@ -52,16 +52,12 @@
             }
 
             .gradient-text {
-                /* Apply the gradient background */
                 background: linear-gradient(to right, #d8b4fe, #fb923c);
-                /* Set the text color to transparent */
                 color: transparent;
-                /* Clip the background to the text */
                 background-clip: text;
-                -webkit-background-clip: text; /* For WebKit browsers (Safari, Chrome) */
+                -webkit-background-clip: text;
             }
         </style>
-        <!-- <script src="popup.js"></script> -->
     </head>
     <body style="width: 300px; height: auto">
         <div
@@ -92,27 +88,3 @@
         <script src="popup.js"></script>
     </body>
 </html>
-
-<!--
-
-<!doctype html>
-<html>
-    <head>
-        <title>Code Extractor</title>
-        <style>
-            body {
-                min-width: 200px;
-                padding: 10px;
-            }
-            #extractButton {
-                padding: 5px 10px;
-                cursor: pointer;
-            }
-        </style>
-    </head>
-    <body>
-        <button id="extractButton">Extract Code</button>
-        <pre id="codeOutput"></pre>
-        <script src="popup.js"></script>
-    </body>
-</html> -->
