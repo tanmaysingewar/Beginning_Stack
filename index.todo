@@ -14,3 +14,22 @@ On click of the button, extract the code from the editor and generate the report
     4. Generate the report by calling the Gorq API
 
 Add a button to Generate the report in Tab in background.
+
+
+// chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//   chrome.scripting.executeScript(
+//     {
+//       target: { tabId: tabs[0].id },
+//       function: () => {
+
+//       },
+//     },
+//     (results) => {
+//       if (results && results[0]) {
+//         console.log("Appended");
+//         document.getElementById("codeOutput").textContent = "Appended";
+//       }
+//     },
+//   );
+// });
+//
