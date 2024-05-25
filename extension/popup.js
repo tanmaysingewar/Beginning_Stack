@@ -14,6 +14,15 @@ document.getElementById("extractButton").addEventListener("click", () => {
   });
 });
 
+document.getElementById("getUserEmail").addEventListener("click", () => {
+  const emailElement = document.querySelector(".inputEmail");
+  if (emailElement) {
+    return console.log("Email : ", emailElement.value);
+  } else {
+    return console.log("Email not found");
+  }
+});
+
 function extractCodeFromDiv() {
   const codeDiv = document.querySelector(".view-lines");
   if (!codeDiv) {
@@ -27,3 +36,7 @@ function extractCodeFromDiv() {
   });
   return code.trim();
 }
+
+chrome.storage.local.get(["key"]).then((result) => {
+  console.log("Value is " + result.key);
+});

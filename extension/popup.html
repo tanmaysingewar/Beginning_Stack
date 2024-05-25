@@ -1,7 +1,6 @@
 <!doctype html>
 <html>
     <head>
-        <title>Textarea Text Retriever</title>
         <style>
             .button-64 {
                 align-items: center;
@@ -57,6 +56,13 @@
                 background-clip: text;
                 -webkit-background-clip: text;
             }
+            .inputEmail {
+                width: auto;
+                padding: 10px;
+                margin-top: 10px;
+                border-radius: 5px;
+                border: 1px solid black;
+            }
         </style>
     </head>
     <body style="width: 300px; height: auto">
@@ -74,6 +80,14 @@
             <button class="button-64" id="extractButton">
                 <span class="text">Get Code</span>
             </button>
+            <input type="text" id="userEmail" class="inputEmail" />
+            <button
+                class="button-64"
+                style="margin-top: 10px"
+                id="getUserEmail"
+            >
+                <span class="text">Submit</span>
+            </button>
             <p
                 id="codeOutput"
                 style="
@@ -85,6 +99,8 @@
                 "
             ></p>
         </div>
+        <script src="supabase.js"></script>
         <script src="popup.js"></script>
+        <script src="user.supabase.js"></script>
     </body>
 </html>
