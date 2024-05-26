@@ -1,18 +1,18 @@
-document.getElementById("extractButton").addEventListener("click", () => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    chrome.scripting.executeScript(
-      {
-        target: { tabId: tabs[0].id },
-        function: extractCodeFromDiv,
-      },
-      (results) => {
-        if (results && results[0]) {
-          document.getElementById("codeOutput").textContent = results[0].result;
-        }
-      },
-    );
-  });
-});
+// document.getElementById("extractButton").addEventListener("click", () => {
+//   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+//     chrome.scripting.executeScript(
+//       {
+//         target: { tabId: tabs[0].id },
+//         function: extractCodeFromDiv,
+//       },
+//       (results) => {
+//         if (results && results[0]) {
+//           document.getElementById("codeOutput").textContent = results[0].result;
+//         }
+//       },
+//     );
+//   });
+// });
 
 document.getElementById("getUserEmail").addEventListener("click", () => {
   const emailElement = document.querySelector(".inputEmail");
@@ -28,13 +28,6 @@ document.getElementById("getUserEmail").addEventListener("click", () => {
     return console.log("Email not found");
   }
 });
-
-// On click of the button, extract the code from the editor and generate the report
-
-// 1. Extract the code from the editor
-// 2. Get the question information [Q_No] from decription
-// 3. Get the solution and dec form the DB
-// 2. Generate the report by calling the Gorq API
 
 function extractCodeFromDiv() {
   const codeDiv = document.querySelector(".view-lines");
@@ -52,4 +45,9 @@ function extractCodeFromDiv() {
 
 chrome.storage.local.get(["key"]).then((result) => {
   console.log("Value is " + result.key);
+});
+
+document.getElementById("test").addEventListener("click", function () {
+  chrome.tabs.create({ url: "https://exampleURL.com/" });
+  console.log("Button clicked");
 });
