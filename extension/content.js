@@ -130,12 +130,6 @@ function addButton() {
   } else {
     console.error("Target container not found");
   }
-
-  // const element = document.createElement("button");
-  // element.innerHTML = "Generate Report";
-  // element.style.cssText =
-  //   "background-color: #222222; color: #007CFF; padding: 5px 10px; text-align: center; border-radius: 5px; text-decoration: none; display: inline-block; font-size: 14px; margin: 0px 5px; cursor: pointer; font-weight: 600;";
-  // console.log("Button appended");
 }
 
 function addTabButton() {
@@ -179,10 +173,3 @@ let checkExistTwo = setInterval(function () {
     clearInterval(checkExistTwo);
   }
 }, 100); // check every 100ms
-
-// On click of the button Generate Report, extract the code from the editor and generate the report
-
-// 1. Extract the code from the editor
-// 2. Get the question information [Q_No] from decription
-// 3. Get the solution and dec form the DB
-// 2. Generate the report by calling the Gorq API

@@ -16,6 +16,25 @@ On click of the button, extract the code from the editor and generate the report
 Add a button to Generate the report in Tab in background.
 
 
+Tommarow Task
+1. Get Email or Username and Groq API Key from User
+2. Store the Email in Supabase and Local Storage [both in localStorage] on click of submit button.
+3. On click Functionality to Generate Button.
+4. Add UI Element to the Reports Tab
+
+Next Day Task
+1. Add functionality to get question no and solution from the DB
+2. Structure the format like get user code, question no, solution and decription.
+3. Add functionality to call the Gorq API and get the report.
+4. Save the report in the DB and LocalStorage.
+4. Add UI Element to the Reports Tab.
+
+Next Day Task
+1. Crete HTML CSS JS page to display the report.
+
+
+
+
 // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 //   chrome.scripting.executeScript(
 //     {
