@@ -2,19 +2,25 @@
 <html>
     <head>
         <link rel="stylesheet" href="popup.styles.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+        />
     </head>
     <body style="width: 300px; height: auto">
         <div
+            id="logInScreen"
             style="
                 border-radius: 5px;
                 padding: 10px;
                 color: white;
                 background-color: black;
                 text-align: center;
+                display: none;
             "
         >
             <h1 class="gradient-text">Beginning Stack</h1>
-            <p id="subHeading">To SignIn or SignUp enter username or email.</p>
+            <p id="subHeading">To SignIn or SignUp enter email.</p>
             <input
                 type="text"
                 id="userEmail"
@@ -28,6 +34,7 @@
                 class="inputEmail"
                 placeholder="Groq API Key"
             />
+            <p id="errorMessage">Email and Gorq API is required</p>
             <p id="instructions">
                 NOTE: If you dont know how to get Groq API key or any difficulty
                 please follow these steps ->
@@ -37,11 +44,18 @@
                 class="button-64"
                 style="margin-top: 10px"
                 id="getUserEmail"
+                loading="true"
             >
-                <span class="text">Submit</span>
+                <i
+                    class="fa fa-spinner fa-spin"
+                    id="loadingSpinner"
+                    style="display: none"
+                ></i>
+                <span class="text" id="buttontext">Submit</span>
             </button>
         </div>
         <div
+            id="mainApplication"
             style="
                 border-radius: 5px;
                 padding: 10px;

@@ -52,3 +52,8 @@ Next Day Task
 //   );
 // });
 //
+
+
+1. Check the locaStorage if user info is saved or not
+    if not show login screen
+    else sync screen

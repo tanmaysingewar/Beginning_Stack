@@ -156,6 +156,15 @@ chrome.storage.local.get(["key"]).then((result) => {
   console.log("Value is client " + result.key);
 });
 
+// TODOs
+// Onclick of the button Generate Report
+// 1. Loading state
+// 2. get question no from UI and get the data from the dataset
+// 3. get use code
+// 4. Call gorq to genereate report
+// 5. save the report to the local storage
+// 6. stop the loading state
+
 // Wait for the DOM to be fully loaded before adding the button
 
 let checkExist = setInterval(function () {
