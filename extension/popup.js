@@ -15,16 +15,43 @@
 // });
 
 document.getElementById("getUserEmail").addEventListener("click", () => {
-  const emailElement = document.querySelector(".inputEmail");
-  if (emailElement) {
-    return console.log("Email : ", emailElement.value);
-    // Add supabase code here
-    // 1. check email exists in the database
-    // 2. if exists, get the user email
-    // 3. if not exists, insert the user email
-    // 4. store the user email in the local storage
-    // 5. display the application interface to the user
+  console.log("Button clicked!!");
+  const email = document.querySelector("#userEmail");
+  const groqAPI = document.querySelector("#groqAPI");
+  if (email) {
+    _supabase
+      .from("users")
+      .select()
+      .eq("email_id", `${email.value}`)
+      .then((data) => {
+        console.log("Users: ", data.data);
+        if (!data.data[0]) {
+          _supabase
+            .from("users")
+            .insert([{ email_id: email.value }])
+            .select()
+            .then((data) => {
+              console.log(data);
+              chrome.storage.local.set({ user: email.value }).then(() => {
+                console.log("Value is set user to : ", email.value);
+              });
+              chrome.storage.local.set({ groqApi: groqAPI.value }).then(() => {
+                console.log("Value is set user to : ", groqAPI.value);
+              });
+            });
+        } else {
+          chrome.storage.local.set({ user: email.value }).then(() => {
+            console.log("Value is set user to : ", email.value);
+          });
+          chrome.storage.local.set({ groqApi: groqAPI.value }).then(() => {
+            console.log("Value is set user to : ", groqAPI.value);
+          });
+        }
+      });
+    return console.log("Email : ", email.value);
+    // Clear all current interface with the button with sync to cloud
   } else {
+    // raise a warning that the email and groqAPI is required
     return console.log("Email not found");
   }
 });
@@ -43,8 +70,8 @@ function extractCodeFromDiv() {
   return code.trim();
 }
 
-chrome.storage.local.get(["key"]).then((result) => {
-  console.log("Value is " + result.key);
+chrome.storage.local.get(["user"]).then((result) => {
+  console.log("Value is " + result.user);
 });
 
 document.getElementById("test").addEventListener("click", function () {

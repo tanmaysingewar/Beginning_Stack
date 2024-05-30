@@ -1,5 +1,5 @@
 // Content script (content.js)
-//
+
 const element = `
 <div
     data-layout-path="/ts0/tb0"

@@ -4,7 +4,7 @@ Simple User Auth
     2. if exists, get the user email
     3. if not exists, insert the user email
     4. store the user email in the local storage
-    5. display the application interface to the user
+    5. display the application interface to the user - shwo button to sync the locally stored file to cloud
 
 
 On click of the button, extract the code from the editor and generate the report by calling the Gorq API

@@ -41,6 +41,39 @@
                 <span class="text">Submit</span>
             </button>
         </div>
+        <div
+            style="
+                border-radius: 5px;
+                padding: 10px;
+                color: white;
+                background-color: black;
+                text-align: center;
+                display: none;
+            "
+        >
+            <h2 class="gradient-text">Sync to cloud</h2>
+            <p style="text-align: center">
+                Click the sync to sync locally stored files
+            </p>
+            <button class="button-64" style="margin-top: 10px" id="syncCloud">
+                <span class="text">Sync</span>
+            </button>
+            <p style="text-align: center">
+                If any this feels wrong just click clear scession by clicking
+                the clear scession.
+            </p>
+            <p
+                id="clearScession"
+                style="
+                    text-align: center;
+                    text-decoration: underline;
+                    cursor: pointer;
+                    color: #d21f3c;
+                "
+            >
+                Clear Scession
+            </p>
+        </div>
         <script src="supabase.js"></script>
         <script src="popup.js"></script>
         <script src="user.supabase.js"></script>
