@@ -15,49 +15,24 @@
 // });
 //
 
-document.getElementById("getUserEmail").addEventListener("click", () => {
-  const email = document.querySelector("#userEmail");
+document.getElementById("getAPIKey").addEventListener("click", () => {
   const groqAPI = document.querySelector("#groqAPI");
-  if (!email.value || !groqAPI.value) {
-    document.querySelector("#errorMessage").style.display = "block";
-    return;
-  }
 
   document.querySelector("#loadingSpinner").style.display = "block";
   document.querySelector("#buttontext").style.display = "none";
 
-  _supabase
-    .from("users")
-    .select()
-    .eq("email_id", `${email.value}`)
-    .then((data) => {
-      console.log("Users: ", data.data);
-      if (!data.data[0]) {
-        _supabase
-          .from("users")
-          .insert([{ email_id: email.value }])
-          .select()
-          .then((data) => {
-            console.log(data);
-            chrome.storage.local.set({ user: email.value }).then(() => {
-              chrome.storage.local.set({ groqApi: groqAPI.value }).then(() => {
-                document.querySelector("#logInScreen").style.display = "none";
-                document.querySelector("#mainApplication").style.display =
-                  "block";
-              });
-            });
-          });
-      } else {
-        chrome.storage.local.set({ user: email.value }).then(() => {
-          chrome.storage.local.set({ groqApi: groqAPI.value }).then(() => {
-            document.querySelector("#logInScreen").style.display = "none";
-            document.querySelector("#mainApplication").style.display = "block";
-          });
-        });
-      }
-    });
-  console.log("Email : ", email.value);
-  // Clear all current interface with the button with sync to cloud
+  if (!groqAPI.value) {
+    document.querySelector("#errorMessage").style.display = "block";
+    document.querySelector("#loadingSpinner").style.display = "none";
+    document.querySelector("#buttontext").style.display = "block";
+    return;
+  }
+
+  chrome.storage.local.set({ groqApi: groqAPI.value }).then(() => {
+    document.querySelector("#logInScreen").style.display = "none";
+    document.querySelector("#mainApplication").style.display = "block";
+  });
+
   document.querySelector("#loadingSpinner").style.display = "none";
   document.querySelector("#buttontext").style.display = "block";
 });
@@ -76,20 +51,16 @@ function extractCodeFromDiv() {
   return code.trim();
 }
 
-chrome.storage.local.get(["user"]).then((result) => {
-  console.log("Value is " + result.user);
-  const userID = result.user;
-  chrome.storage.local.get(["groqApi"]).then((result) => {
-    console.log("Value is " + result.groqApi);
-    const groqAPIId = result.groqApi;
-    if (userID && groqAPIId) {
-      document.querySelector("#logInScreen").style.display = "none";
-      document.querySelector("#mainApplication").style.display = "block";
-    } else {
-      document.querySelector("#logInScreen").style.display = "block";
-      document.querySelector("#mainApplication").style.display = "none";
-    }
-  });
+chrome.storage.local.get(["groqApi"]).then((result) => {
+  console.log("Value is " + result.groqApi);
+  const groqAPIId = result.groqApi;
+  if (groqAPIId) {
+    document.querySelector("#logInScreen").style.display = "none";
+    document.querySelector("#mainApplication").style.display = "block";
+  } else {
+    document.querySelector("#logInScreen").style.display = "block";
+    document.querySelector("#mainApplication").style.display = "none";
+  }
 });
 
 document.querySelector("#clearScession").addEventListener("click", () => {

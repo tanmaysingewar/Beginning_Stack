@@ -7,34 +7,29 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
     </head>
-    <body style="width: 300px; height: auto">
+    <body style="width: 350px; height: auto">
         <div
             id="logInScreen"
             style="
                 border-radius: 5px;
-                padding: 10px;
+                padding: 25px;
                 color: white;
                 background-color: black;
                 text-align: center;
                 display: none;
+                margin: -10px;
             "
         >
             <h1 class="gradient-text">Beginning Stack</h1>
-            <p id="subHeading">To SignIn or SignUp enter email.</p>
-            <input
-                type="text"
-                id="userEmail"
-                class="inputEmail"
-                placeholder="Username or Email"
-            />
-            <p id="subHeading">Enter your groqAPI</p>
+            <p style="font-size: 13px; font-weight: 500;" >Analytical tool for analyzing and generating code reports of your leetcode solutions.</p>
+            <p id="subHeading">Enter your GroqAPI</p>
             <input
                 type="text"
                 id="groqAPI"
                 class="inputEmail"
                 placeholder="Groq API Key"
             />
-            <p id="errorMessage">Email and Gorq API is required</p>
+            <p id="errorMessage">Gorq API is required</p>
             <p id="instructions">
                 NOTE: If you dont know how to get Groq API key or any difficulty
                 please follow these steps ->
@@ -43,7 +38,7 @@
             <button
                 class="button-64"
                 style="margin-top: 10px"
-                id="getUserEmail"
+                id="getAPIKey"
                 loading="true"
             >
                 <i
@@ -58,38 +53,35 @@
             id="mainApplication"
             style="
                 border-radius: 5px;
-                padding: 10px;
+                padding: 25px;
                 color: white;
                 background-color: black;
                 text-align: center;
                 display: none;
             "
         >
-            <h2 class="gradient-text">Sync to cloud</h2>
-            <p style="text-align: center">
-                Click the sync to sync locally stored files
+        <h1 class="gradient-text">Beginning Stack</h1>
+        <p style="font-size: 13px; font-weight: 500;" >Analytical tool for analyzing and generating code reports of your leetcode solutions.</p>
+            <p style="text-align: center" id="instructions">
+                Note : If any this feels wrong just click clear session by clicking
+                the clear session.
             </p>
-            <button class="button-64" style="margin-top: 10px" id="syncCloud">
-                <span class="text">Sync</span>
-            </button>
-            <p style="text-align: center">
-                If any this feels wrong just click clear scession by clicking
-                the clear scession.
-            </p>
-            <p
+            <button
                 id="clearScession"
                 style="
-                    text-align: center;
-                    text-decoration: underline;
+                    margin-top: 20px;
+                    align-items: center;
+                    background-color: rgb(255, 255, 255);
+                    border: 0;
+                    border-radius: 4px;
+                    /* color: #fe4c4c; */
+                    padding: 7px 15px;
                     cursor: pointer;
-                    color: #d21f3c;
                 "
             >
-                Clear Scession
-            </p>
+                Clear Session
+            </button>
         </div>
-        <script src="supabase.js"></script>
         <script src="popup.js"></script>
-        <script src="user.supabase.js"></script>
     </body>
 </html>
