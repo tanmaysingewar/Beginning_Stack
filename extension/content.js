@@ -285,7 +285,7 @@ function createReport(solution, userCode) {
             `<div class="mb-6 overflow-hidden rounded-lg text-sm mt-5"><div class="flex select-none bg-layer-2 dark:bg-dark-layer-2"><div class="font-menlo relative flex h-10 cursor-pointer items-center justify-center px-3 font-medium transition-all text-label-1 dark:text-dark-label-1 EoHqa">${userLanguage}</div></div><div class="px-3 py-2.5 bg-fill-3 dark:bg-dark-fill-3"><div class="group relative" translate="no"><pre style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 0px; margin: 0px; overflow: auto; background: transparent;"><code class="language-java" style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;">$1</code></pre></div></div></div>`
           );
 
-          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px">${displayAnalysis}<p class="mt-5">If you feel the analysis is not good, regenerate the report by clicking analysis button.</p></div>`;
+          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px">${displayAnalysis}<p class="mt-5">If you feel the analysis is not good enough, regenerate the report by clicking analysis button.</p></div>`;
 
           targetContainer.appendChild(newDiv);
           createPopUpNotification("Analysis Report is been created 😁");
