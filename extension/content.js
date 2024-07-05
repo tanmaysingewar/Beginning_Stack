@@ -36,7 +36,7 @@ const addButtonElement = `
                 </g>
               </svg>
           </div>
-          <span class="text-sm font-medium">Analysis</span>
+          <span class="text-sm font-medium">Analyze</span>
         </button>
       </div>
       </div>
@@ -80,13 +80,41 @@ function addButton() {
       // getting slug
       const slugFromUrl = getSlug();
 
+      if (!slugFromUrl) {
+        createPopUpNotification(
+          "Sorry, We are not able to get the problem slug"
+        );
+        document.querySelector("#generateReportButton").style.display = "block";
+        document.querySelector("#generateReportLoading").style.display = "none";
+        return;
+      }
+
       // getting data from the DB
       const solution = getSolutionFromDB(slugFromUrl);
+
+      if (!solution) {
+        createPopUpNotification(
+          "Sorry, We are not able to generate the report for this problem"
+        );
+        document.querySelector("#generateReportButton").style.display = "block";
+        document.querySelector("#generateReportLoading").style.display = "none";
+        return;
+      }
+
       // Getting Users code
-      console.log("User Code:", extractCodeFromDiv());
+      const userCode = extractCodeFromDiv();
+
+      if (!userCode) {
+        createPopUpNotification(
+          "Sorry, We are not able to get the code from the editor"
+        );
+        document.querySelector("#generateReportButton").style.display = "block";
+        document.querySelector("#generateReportLoading").style.display = "none";
+        return;
+      }
 
       // Call Groq API
-      createReport(solution, extractCodeFromDiv());
+      createReport(solution, userCode);
     });
 }
 
@@ -161,22 +189,34 @@ function createReport(solution, userCode) {
           Explanation for the solution of the problem 
           ${solution.answer.explanation}. 
 
-          All points should starts with -
+          Task:
+          Please analyze the user's code based on the following aspects and provide a detailed evaluation:
 
-          Here is format of the Analysis
+          1. **Correctness:**
+            - Does the user's code solve the problem correctly? Highlight any discrepancies or errors compared to the correct solution.
+            - Mention if the users code passes all provided test cases.
 
-          Analysis 
+          2. **Efficiency:**
+            - Analyze the time complexity of the user's solution.
+            - Analyze the space complexity of the user's solution.
 
-          **Problem Description** 
-            - Whats is the problem description
-          **User Code** 
-            - How you has solved the problem - Comment it
-            - Do not specify the language in code directly give code
-          **Improvement** 
-            - What improvement you can do in current code
-          **Optimal Solution** 
-            - How you can react to the optimal solution comparing with the current approach of the user to solve the given problem.
-            - Do not specify the language in code directly give code
+          3. **Data Structure Usage:**
+            - Evaluate the appropriateness and efficiency of the data structures used in the user's solution.
+
+          4. **Algorithm Design:**
+            - Assess whether the chosen algorithm is appropriate for solving the problem efficiently.
+            - Discuss any alternative algorithms that could have been used.
+
+          5. **Code Readability and Maintainability:**
+            - Comment on the organization and structure of the code.
+            - Evaluate the use of comments and naming conventions.
+
+          6. **Optimization:**
+            - Suggest any potential optimizations that could improve the performance of the user's code.
+
+          7. **Testing and Validation:**
+            - Review the comprehensiveness of the test cases considered by the user.
+            - Discuss the robustness of the solution with respect to different input scenarios.
           
           Note : 
           Everything should be in point vise only
@@ -184,7 +224,8 @@ function createReport(solution, userCode) {
           Always keep the Analysis as the first words of the response.
           Don't refer user as a user in report just use words like you and your for Personal Touch
           Give all the response in 2 to 3 points
-          Avoid white space in the response`,
+          Avoid white space in the response
+          Always starts point with number`
           },
         ],
         model: "llama3-70b-8192",
@@ -225,21 +266,26 @@ function createReport(solution, userCode) {
             .replace(boldRegex, `<b>$1</b>`)
             .replace(
               /(Analysis:)/g,
-              '<span style="font-size: 24px;"><b>$1</b></span>'
+              '<span style="font-size: 24px;"><b>Analysis</b></span>'
             )
             .replace(
               /(Analysis)/g,
               '<span style="font-size: 24px;"><b>$1</b></span>'
             );
 
-          const regex = /^\*(.*$)/gm;
-          const replacedText = formattedText.replace(regex, `$1`).trim();
-          const displayCode = replacedText.replace(
+            const modifiedText = formattedText.replace(/```([\s\S]*?)```/g, (match, p1) => {
+              let words = p1.split(" ");
+              words.shift(); // Remove the first word
+              return "```" + words.join(" ") + "```";
+            });
+
+          const replacedText = modifiedText.replace(/^\*(.*$)/gm, `- $1`).trim();
+          const displayAnalysis = replacedText.replace(
             /```([\s\S]*?)```/g,
             `<div class="mb-6 overflow-hidden rounded-lg text-sm mt-5"><div class="flex select-none bg-layer-2 dark:bg-dark-layer-2"><div class="font-menlo relative flex h-10 cursor-pointer items-center justify-center px-3 font-medium transition-all text-label-1 dark:text-dark-label-1 EoHqa">${userLanguage}</div></div><div class="px-3 py-2.5 bg-fill-3 dark:bg-dark-fill-3"><div class="group relative" translate="no"><pre style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 0px; margin: 0px; overflow: auto; background: transparent;"><code class="language-java" style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;">$1</code></pre></div></div></div>`
           );
 
-          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px">${displayCode}<p class="mt-5">If you feel the analysis is not good, regenerate the report by clicking analysis button.</p></div>`;
+          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px">${displayAnalysis}<p class="mt-5">If you feel the analysis is not good, regenerate the report by clicking analysis button.</p></div>`;
 
           targetContainer.appendChild(newDiv);
           createPopUpNotification("Analysis Report is been created 😁");
@@ -290,7 +336,11 @@ function createPopUpNotification(message) {
 
 function getSlug() {
   const baseUrl = "https://leetcode.com/problems/";
-  return window.location.toString().substring(baseUrl.length).split("/")[0];
+  const slug = window.location?.toString()?.substring(baseUrl.length)?.split("/")[0];
+  if (slug) {
+    return slug;
+  } 
+  return null;
 }
 
 function getSolutionFromDB(slugFromUrl) {
@@ -300,6 +350,7 @@ function getSolutionFromDB(slugFromUrl) {
       return AllProblems[i];
     }
   }
+  return null;
 }
 
 function extractCodeFromDiv() {
