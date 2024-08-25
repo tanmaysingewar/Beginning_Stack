@@ -60,6 +60,28 @@ const newPopupNotification = (message) => {
   `;
 };
 
+function createLoading() {
+  const targetContainer = document.querySelector(
+    '[data-layout-path="/ts0/t0"]'
+  );
+  targetContainer.removeChild(targetContainer.lastChild);
+
+  const newDiv = document.createElement("div");
+  newDiv.innerHTML = `<div style="display: flex; align-items: flex-start; justify-content: center; padding: 20px; height: 100%; @keyframes myfirst
+{
+    0%      {background:red;}
+    25%     {background:yellow;}
+    75%     {background:yellow;}
+    100%    {background:red;}
+}">
+    <div style="text-align: center;">
+        <img src="https://media.tenor.com/pCnrkfy17TcAAAAM/pull-reports.gif" alt="Pending..." style="display: block; margin: 0 auto;">
+        <div class="text-xs leading-[20px] text-text-secondary dark:text-text-secondary" style="margin-top: 10px;">Analyzing</div>
+    </div>
+</div>`;
+  targetContainer.appendChild(newDiv.firstElementChild);
+}
+
 const newDivElement = document.createElement("div");
 newDivElement.innerHTML = popupMessageProvider;
 document.body.appendChild(newDivElement.firstElementChild);
@@ -76,6 +98,7 @@ function addButton() {
     .addEventListener("click", () => {
       document.querySelector("#generateReportButton").style.display = "none";
       document.querySelector("#generateReportLoading").style.display = "block";
+
 
       // getting slug
       const slugFromUrl = getSlug();
@@ -118,6 +141,8 @@ function addButton() {
     });
 }
 
+
+
 function createReport(solution, userCode) {
   const result = document.querySelector('[data-e2e-locator="console-result"]');
   const resultAccepted = result ? result.textContent : "Element not found";
@@ -158,7 +183,7 @@ function createReport(solution, userCode) {
             role: "user",
             content: `
           You are the Code Analyser.
-          You have generate analysis user code based on
+          You have to generate analysis based on user code 
           1. Tell what they have done in solution.
           2. What improvement user can do enhance the Solution
           3. Comment on code and how he or she can solve the answer in better way.
@@ -221,6 +246,7 @@ function createReport(solution, userCode) {
           Note : 
           Everything should be in point vise only
           Always include Optimal Solution code and User Code in response. 
+          Convert the Optimal Solution code to the user language
           Always keep the Analysis as the first words of the response.
           Don't refer user as a user in report just use words like you and your for Personal Touch
           Give all the response in 2 to 3 points
@@ -238,6 +264,8 @@ function createReport(solution, userCode) {
         },
         body: JSON.stringify(requestData),
       };
+
+      createLoading();
 
       fetch(apiUrl, requestOptions)
         .then((response) => response.json())
@@ -282,10 +310,10 @@ function createReport(solution, userCode) {
           const replacedText = modifiedText.replace(/^\*(.*$)/gm, `- $1`).trim();
           const displayAnalysis = replacedText.replace(
             /```([\s\S]*?)```/g,
-            `<div class="mb-6 overflow-hidden rounded-lg text-sm mt-5"><div class="flex select-none bg-layer-2 dark:bg-dark-layer-2"><div class="font-menlo relative flex h-10 cursor-pointer items-center justify-center px-3 font-medium transition-all text-label-1 dark:text-dark-label-1 EoHqa">${userLanguage}</div></div><div class="px-3 py-2.5 bg-fill-3 dark:bg-dark-fill-3"><div class="group relative" translate="no"><pre style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 0px; margin: 0px; overflow: auto; background: transparent;"><code class="language-java" style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;">$1</code></pre></div></div></div>`
+            `<div class="mb-6 overflow-hidden rounded-lg text-sm mt-5"><div class="flex select-none bg-layer-2 dark:bg-dark-layer-2"><div class="font-menlo relative flex h-10 cursor-pointer items-center justify-center px-3 font-medium transition-all text-label-1 dark:text-dark-label-1 EoHqa">${userLanguage}</div></div><div class="px-3 py-2.5 bg-fill-3 dark:bg-dark-fill-3"><div class="group relative" translate="no"><pre style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 0px; margin: 0px; overflow: auto;"><code class="language-java" style="color: rgb(212, 212, 212); font-size: 13px; text-shadow: none; font-family: Menlo, Monaco, Consolas, &quot;Andale Mono&quot;, &quot;Ubuntu Mono&quot;, &quot;Courier New&quot;, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;">$1</code></pre></div></div></div>`
           );
 
-          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px">${displayAnalysis}<p class="mt-5">If you feel the analysis is not good enough, regenerate the report by clicking analysis button.</p></div>`;
+          newDiv.innerHTML = `<div style="white-space: pre-wrap; padding : 20px;">${displayAnalysis}<p class="mt-5">If you feel the analysis is not good enough, regenerate the report by clicking analysis button.</p></div>`;
 
           targetContainer.appendChild(newDiv);
           createPopUpNotification("Analysis Report is been created 😁");

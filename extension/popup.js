@@ -75,6 +75,6 @@ document.querySelector("#clearScession").addEventListener("click", () => {
 });
 
 document.getElementById("test").addEventListener("click", function () {
-  chrome.tabs.create({ url: "https://exampleURL.com/" });
+  chrome.tabs.create({ url: "https://www.iamtanmay.in/docs/beginning-stack" });
   console.log("Button clicked");
 });

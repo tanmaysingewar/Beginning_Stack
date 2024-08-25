@@ -1,17 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Code Extractor",
+  "name": "Beginning Stack",
   "version": "1.0",
-  "description": "Extract code from div with class .view-lines",
+  "description": "Chrome extension that give proper analysis on you coding problem solution.",
   "permissions": ["activeTab", "scripting", "storage"],
-  "host_permissions": [
-    "https://developer.chrome.com/*",
-    "https://*.google.com/*",
-    "https://cdn.jsdelivr.net/*"
-  ],
-  "background": {
-    "service_worker": "background.js"
-  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
